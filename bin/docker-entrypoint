@@ -1,0 +1,8 @@
+#!/nix/store/syl4snn859kpqvn9qh91kr7n9i4dws04-bash-5.2p32/bin/bash -e
+
+# If running the rails server then create or migrate existing database
+if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
+  ./bin/rails db:prepare
+fi
+
+exec "${@}"
