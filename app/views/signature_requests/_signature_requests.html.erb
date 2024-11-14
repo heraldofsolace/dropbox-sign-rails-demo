@@ -1,0 +1,22 @@
+ <%= render_table class: "mb-5" do %>
+    <%= table_head do %>
+        <%= table_header "Signers" %>
+        <%= table_header "Subject"%>
+        <%= table_header "Message"%>
+        <%= table_header "Document"%>
+        <%= table_header ""%>
+    <% end %>
+    <%= table_body do %>
+        <% signature_requests.each do |signature_request| %>
+        <%= table_row do %>
+            <%= table_column signature_request.signers.map(&:name).join(", ") %>
+            <%= table_column signature_request.subject %>
+            <%= table_column signature_request.message %>
+            <%= table_column signature_request.get_doc.to_s %>
+            <%= table_column do %>
+                <%= render_button "View", as: :link, variant: :outline, href: signature_request %>
+            <% end %>
+        <% end %>
+        <% end %>
+    <% end %>
+<% end %>

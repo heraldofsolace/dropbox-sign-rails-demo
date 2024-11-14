@@ -1,0 +1,41 @@
+<%= render_form_with(model: signature_request, class: "") do |form| %>
+  <% if signature_request.errors.any? %>
+  <%= render_toast header: "Couldn't save this signature request due to #{pluralize(signature_request.errors.count, 'error')}",
+    description: signature_request.errors.full_messages.join(", "),
+    variant: :destructive %>
+  <% end %>
+  <div class="mb-3">
+    <%= form.label :subject %>
+    <%= form.text_field :subject %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :message %>
+    <%= form.text_area :message %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :file_url %>
+    <%= form.text_field :file_url, placeholder: "Provide either a file URL or attach a file" %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :document %><br />
+    <%= form.file_field :document, accept: "application/pdf" %>
+  </div>
+  <%= render_separator %>
+  <h3 class="text-bold my-5">Signers</h3>
+  <div data-controller="nested-rondo" data-nested-rondo-field-class-value="signer-field">
+    <div data-nested-rondo-target="fieldContain">
+      <%= form.fields_for :signers do |signer| %>
+        <%= render "signer_fields", f: signer %>
+      <% end %>
+    </div>
+    <div class="links">
+      <%= link_to_add_association "Add Signer", form, :signers, class:
+              "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-secondary text-secondary-foreground hover:bg-secondary/80" %>
+    </div>
+  </div>
+  <div class="flex justify-center">
+    <%= form.submit "Send request" %>
+  </div>
+
+<% end %>

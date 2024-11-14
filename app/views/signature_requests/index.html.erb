@@ -1,0 +1,54 @@
+<main class="p-10">
+<% if alert.present? %>
+  <%= render_toast header: "Error",
+    description: alert %>
+  <% end %>
+  <% if notice.present? %>
+  <%= render_toast header: "Notice",
+    description: notice,
+    variant: :destructive %>
+  <% end %>
+  <div class="flex justify-between">
+<h1 class="text-3xl">Signature requests</h1>
+ <%= button_to "Sign Out",
+          public_send(
+            "destroy_#{current_user.class.name.demodulize.underscore}_session_path",
+          ),class:
+                        "inline-flex mx-5 items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-event
+  s-none disabled:opacity-50 h-10 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90",
+      method: :delete,
+      as: :link %>
+</div>
+<div class="p-5">
+<%= render_tabs do %>
+  <%= tab_list do %>
+    <%= tab "Received requests", active: true %>
+    <%= tab "Sent requests" %>
+  <% end %>
+  <%= tab_panels do %>
+    <%= tab_panel active: true do %>
+      <% if @received_signature_requests.empty? %>
+        <div class="flex justify-center p-5">
+          <span>You haven't received any requests yet</span>
+        </div>
+      <% else %>
+        <%= render partial: "signature_requests", locals: { signature_requests: @received_signature_requests } %>
+      <% end %>
+      
+    <% end %>
+    <%= tab_panel do %>
+      <% if @sent_signature_requests.empty? %>
+        <div class="flex justify-center p-5">
+          <span>You haven't sent any requests yet</span>
+        </div>
+      <% else %>
+        <%= render partial: "signature_requests", locals: { signature_requests: @sent_signature_requests } %>
+      <% end %>
+      
+    <% end %>
+  <% end %>
+<% end %>
+  <%= render_button "New signature request", as: :link, href: new_signature_request_path %>
+ 
+</div>
+</main>

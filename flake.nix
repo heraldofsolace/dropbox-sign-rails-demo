@@ -15,22 +15,18 @@
 
         rubyEnv = pkgs.bundlerEnv {
           # The full app environment with dependencies
-          name = "rails-env";
+          name = "ds-env";
           ruby = pkgs.ruby_3_3;
           gemdir = ./.; # Points to Gemfile.lock and gemset.nix
           gemConfig = pkgs.defaultGemConfig // {
-            pg = attrs: {
-              buildFlags =
-              [ "--with-pg-config=${pkgs."postgresql_${pg_version}"}/bin/pg_config" ];
-            };
-             tailwindcss-rails = attrs:
-                if pkgs.stdenv.isLinux then rec {
-                  # Append the OS-specific version suffix
-                  version = attrs.version + "-x86_64-linux";
-                  # Update the SHA256 accordingly
-                  source = attrs.source // { sha256 = "sha256-asBSNQbLEi4+JrsHwvbhUFQlMNDRPYpOhGbtemn7/OI="; };
-#                  nativeBuildInputs = with pkgs; [ autoPatchelfHook ];
-                } else attrs;
+            tailwindcss-rails = attrs:
+                  if pkgs.stdenv.isLinux then rec {
+                    # Append the OS-specific version suffix
+                    version = attrs.version + "-x86_64-linux";
+                    # Update the SHA256 accordingly
+                    source = attrs.source // { sha256 = "sha256-asBSNQbLEi4+JrsHwvbhUFQlMNDRPYpOhGbtemn7/OI="; };
+  #                  nativeBuildInputs = with pkgs; [ autoPatchelfHook ];
+                  } else attrs;
             nokogiri = attrs:
                 if pkgs.stdenv.isLinux then rec {
                   # Append the OS-specific version suffix
@@ -41,9 +37,9 @@
             sqlite3 = attrs:
                 if pkgs.stdenv.isLinux then rec {
                   # Append the OS-specific version suffix
-                  version = attrs.version + "-x86_64-linux";
+                  version = attrs.version + "-x86_64-linux-gnu";
                   # Update the SHA256 accordingly
-                  source = attrs.source // { sha256 = "sha256-UioyhWYN7IJTRliAyXmA6HPbDXkGCQC+jRQZQhej7nM="; };
+                  source = attrs.source // { sha256 = "sha256-PQUDKnhvxWKZrNdD7iJnFcykmkrNIVmrjh665T8k+y0="; };
                 } else attrs;
             };
           extraConfigPaths = [ "${./.}/.ruby-version" ];

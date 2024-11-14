@@ -1,0 +1,37 @@
+<div id="<%= dom_id signature_request %>" class="flex flex-col justify-center p-10">
+    <div>
+      <span class="text-xs text-muted block">Subject</span>
+      <span class="text-2xl block mb-3"><%= signature_request.subject %></span>
+    </div>
+
+    <div>
+      <span class="text-xs text-muted block">Message</span>
+      <span class="text-2xl block mb-3"><%= signature_request.message %></span>
+    </div>
+
+    <span class="text-xs text-muted block">Signers</span>
+    <%= render_table do %>
+      <%= table_head do %>
+        <%= table_header "Email" %>
+        <%= table_header "Name" %>
+        <%= table_header "Role" %>
+      <% end %>
+      <%= table_body do %>
+        <% signature_request.signers.each do |signer| %>
+          <%= table_row do %>
+            <%= table_column signer.email %>
+            <%= table_column signer.name %>
+            <%= table_column signer.role %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <span class="text-xs text-muted block my-3">Document</span>
+    <% unless signature_request.file_url.blank? %>
+      <span class="text-2xl block"><%= signature_request.file_url %></span>
+    <% else %>
+      <div class="flex justify-center mt-5">
+        <embed src="<%= url_for(signature_request.document) %>" width="1000" height="500"  type="application/pdf">
+      </div>
+    <% end %>
+</div>
