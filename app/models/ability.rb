@@ -4,6 +4,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    can :create, SignatureRequest
     can :read, SignatureRequest do |signature_request|
       signature_request.user == user || signature_request.signers.count { |signer| signer.email == user.email } >= 1
     end
