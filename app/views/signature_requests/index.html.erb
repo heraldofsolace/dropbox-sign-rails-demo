@@ -1,12 +1,11 @@
 <main class="p-10">
 <% if alert.present? %>
   <%= render_toast header: "Error",
-    description: alert %>
+    description: alert, variant: :destructive %>
   <% end %>
   <% if notice.present? %>
   <%= render_toast header: "Notice",
-    description: notice,
-    variant: :destructive %>
+    description: notice %>
   <% end %>
   <div class="flex justify-between">
 <h1 class="text-3xl">Signature requests</h1>
