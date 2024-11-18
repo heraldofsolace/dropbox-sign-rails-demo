@@ -72,3 +72,4 @@ gem "tailwindcss-rails", "~> 2.7", ">= 2.7.9"
 gem "shadcn-ui"
 gem "active_storage_validations"
 gem 'cancancan'
+gem "dropbox-sign"

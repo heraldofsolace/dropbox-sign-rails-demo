@@ -26,6 +26,16 @@
         <% end %>
       <% end %>
     <% end %>
+    <% if can? :sign, signature_request %>
+      <div class="my-3">
+        <%= render_button "Sign", data: { controller: "signer", action: "signer#sign", "signer-url-value": signature_url&.embedded&.sign_url } %>
+      </div>
+    <% end %>
+    <% if can? :download, signature_request %>
+      <div class="my-3">
+        <%= render_button "Download", as: :link, href: "/signature_requests/#{signature_request.id}/download" %>
+      </div>
+    <% end %>
     <span class="text-xs text-muted block my-3">Document</span>
     <% unless signature_request.file_url.blank? %>
       <span class="text-2xl block"><%= signature_request.file_url %></span>

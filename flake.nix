@@ -41,6 +41,13 @@
                   # Update the SHA256 accordingly
                   source = attrs.source // { sha256 = "sha256-PQUDKnhvxWKZrNdD7iJnFcykmkrNIVmrjh665T8k+y0="; };
                 } else attrs;
+            ffi = attrs:
+                if pkgs.stdenv.isLinux then rec {
+                  # Append the OS-specific version suffix
+                  version = attrs.version + "-x86_64-linux-gnu";
+                  # Update the SHA256 accordingly
+                  source = attrs.source // { sha256 = "sha256-EBXlnVkZ3Wu8sHBDJbC9Y5vmZKebHiGJlDzrGPqjQZg="; };
+                } else attrs;
             };
           extraConfigPaths = [ "${./.}/.ruby-version" ];
 

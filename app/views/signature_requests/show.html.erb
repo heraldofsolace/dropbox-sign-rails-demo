@@ -1,6 +1,5 @@
 <main class="p-10">
-  <%= render @signature_request %>
-
+  <%= render partial: "signature_request", locals: { signature_request: @signature_request, signature_url: @signature_url } %>
   <div>
     <%= link_to "Back to signature requests", signature_requests_path %>
   </div>

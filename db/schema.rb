@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_14_145030) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_16_160100) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,6 +46,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_14_145030) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "file_url"
+    t.string "ds_signature_request_id"
     t.index ["user_id"], name: "index_signature_requests_on_user_id"
   end
 
@@ -56,6 +57,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_14_145030) do
     t.integer "signature_request_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ds_signature_id"
     t.index ["signature_request_id"], name: "index_signers_on_signature_request_id"
   end
 
