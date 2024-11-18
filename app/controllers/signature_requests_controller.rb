@@ -1,7 +1,7 @@
 class SignatureRequestsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
-  before_action :set_signature_request, only: %i[ show sign ]
+  before_action :set_signature_request, only: %i[ show ]
 
   # GET /signature_requests or /signature_requests.json
   def index
@@ -31,9 +31,6 @@ class SignatureRequestsController < ApplicationController
         format.json { render json: @signature_request.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def sign
   end
 
   private
